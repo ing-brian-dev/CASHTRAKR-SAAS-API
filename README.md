@@ -1,300 +1,285 @@
-# Especificaciones del Proyecto
+# CashTrackr SAAS API
 
-Este documento describe las **librerías, dependencias y configuraciones principales** utilizadas en el proyecto **CashTrackr Backend**.
+> CashTrackr is a personal finance management API built as a **Software as a Service (SaaS)** that allows users to track their budgets and expenses efficiently.
 
-El proyecto está construido utilizando **Node.js, Express y TypeScript**, siguiendo buenas prácticas de desarrollo para APIs REST.
+This document describes the **libraries, dependencies, and main configurations** used in the **CashTrackr Backend** project.
+The project is built using **Node.js, Express and TypeScript**, following best practices for REST API development.
 
-La documentacion del proyecto la encuentras en el siguiente enlace:
-https://documenter.getpostman.com/view/43228681/2sBXinJWxG 
-
----
-
-# Información General del Proyecto
-
-- **Nombre:** cashtrackr_backend
-- **Versión:** 1.0.0
-- **Autor:** Brian Valdivia
-- **Licencia:** ISC
-- **Descripción:** Proyecto CashTrackr construido con React, TypeScript y Node.js.
+📄 Full API documentation available at:
+[https://documenter.getpostman.com/view/43228681/2sBXinJWxG](https://documenter.getpostman.com/view/43228681/2sBXinJWxG)
 
 ---
 
-# Scripts del Proyecto
+## General Project Information
 
-Los siguientes scripts están definidos en el archivo `package.json` para facilitar el desarrollo y ejecución del proyecto.
+| Field | Value |
+|-------|-------|
+| **Name** | cashtrackr_backend |
+| **Version** | 1.0.0 |
+| **Author** | Brian Valdivia |
+| **License** | ISC |
+| **Description** | CashTrackr SaaS API built with Node.js, Express and TypeScript |
 
-### Desarrollo
+---
 
-Ejecuta el proyecto en modo desarrollo utilizando **tsx** para ejecutar TypeScript directamente.
+## Tech Stack
 
+- **Runtime:** Node.js
+- **Language:** TypeScript 5.x
+- **Framework:** Express 5.x
+- **ORM:** Sequelize TypeScript
+- **Databases:** PostgreSQL (primary), MySQL2 (supported)
+- **Testing:** Jest + ts-jest
+- **Auth:** JSON Web Tokens (JWT)
 
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js >= 18
+- PostgreSQL database instance
+- SMTP credentials for email delivery
+
+### Installation
+
+```bash
+git clone https://github.com/ing-brian-dev/CASHTRAKR-SAAS-API.git
+cd CASHTRAKR-SAAS-API
+npm install
+```
+
+### Environment Variables
+
+Copy the example file and fill in your values:
+
+```bash
+cp .env.example .env
+```
+
+| Variable | Description |
+|----------|-------------|
+| `DATABASE_URL` | Your PostgreSQL connection URL |
+| `SMTP_HOST` | Email host (e.g. smtp.gmail.com) |
+| `SMTP_PORT` | Email port (e.g. 587) |
+| `SMTP_USER` | Email account username |
+| `SMTP_PASS` | Email account password |
+| `JWT_SECRET` | Secret key for JWT signing |
+| `FRONTEND_URL` | Frontend origin URL (e.g. http://localhost:3000) |
+
+---
+
+## Project Scripts
+
+The following scripts are defined in `package.json`:
+
+### Development
+
+Runs the project in development mode using **tsx** to execute TypeScript directly.
+
+```bash
 npm run dev
+# → tsx watch src/
+```
 
+### Development (API mode)
 
-Script:
+Runs the API server in development mode.
 
-
-tsx watch src/
-
-
----
-
-### Desarrollo API
-
-Ejecuta el servidor API en modo desarrollo.
-
-
+```bash
 npm run dev:api
+# → tsx watch src/ --api
+```
 
+### Build
 
-Script:
+Compiles TypeScript to JavaScript into the `dist` folder.
 
-
-tsx watch src/ --api
-
-
----
-
-### Compilar el Proyecto
-
-Compila el código TypeScript a JavaScript en la carpeta `dist`.
-
-
+```bash
 npm run build
+# → tsc
+```
 
+### Start (Production)
 
-Script:
+Runs the compiled project.
 
-
-tsc
-
-
----
-
-### Ejecutar Proyecto Compilado
-
-Ejecuta el proyecto una vez compilado.
-
-
+```bash
 npm start
+# → node ./dist/index.js
+```
 
+### Test
 
-Script:
+Runs the full test suite using Jest.
 
-
-node ./dist/index.js
-
+```bash
+npm test
+# → jest
+```
 
 ---
 
-# Dependencias del Proyecto
-
-Estas son las **dependencias principales utilizadas en producción**.
+## Production Dependencies
 
 ### Express
-
-Framework para la creación de APIs REST.
-
-
-express
-
-
----
+REST API framework.
+```
+express ^5.2.1
+```
 
 ### Sequelize TypeScript
-
-ORM para interactuar con bases de datos SQL utilizando TypeScript.
-
-
-sequelize-typescript
-
-
----
+ORM for interacting with SQL databases using TypeScript.
+```
+sequelize-typescript ^2.1.6
+```
 
 ### MySQL2
-
-Driver para conectarse a bases de datos **MySQL**.
-
-
-mysql2
-
-
----
+Driver for connecting to **MySQL** databases.
+```
+mysql2 ^3.19.1
+```
 
 ### PostgreSQL
-
-Soporte para bases de datos **PostgreSQL**.
-
-
-pg
-pg-hstore
-
-
----
+Support for **PostgreSQL** databases.
+```
+pg ^8.20.0
+pg-hstore ^2.3.4
+```
 
 ### JSON Web Token
-
-Utilizado para **autenticación basada en tokens**.
-
-
-jsonwebtoken
-
-
----
+Used for **token-based authentication**.
+```
+jsonwebtoken ^9.0.3
+```
 
 ### Bcrypt
-
-Utilizado para **encriptar contraseñas de usuarios**.
-
-
-bcrypt
-
-
----
+Used for **hashing user passwords**.
+```
+bcrypt ^6.0.0
+```
 
 ### Express Validator
-
-Middleware utilizado para **validar datos enviados en las peticiones HTTP**.
-
-
-express-validator
-
-
----
+Middleware for **validating incoming HTTP request data**.
+```
+express-validator ^7.3.1
+```
 
 ### Express Rate Limit
-
-Middleware para **limitar la cantidad de peticiones y prevenir ataques de fuerza bruta**.
-
-
-express-rate-limit
-
-
----
+Middleware for **throttling requests and preventing brute-force attacks**.
+```
+express-rate-limit ^8.3.1
+```
 
 ### Morgan
-
-Middleware utilizado para **registrar logs de las peticiones HTTP**.
-
-
-morgan
-
-
----
+HTTP request **logging** middleware.
+```
+morgan ^1.10.1
+```
 
 ### Dotenv
-
-Permite cargar variables de entorno desde un archivo `.env`.
-
-
-dotenv
-
-
----
+Loads environment variables from a `.env` file.
+```
+dotenv ^17.3.1
+```
 
 ### Nodemailer
-
-Librería utilizada para **enviar correos electrónicos desde la aplicación**.
-
-
-nodemailer
-
-
----
+Library for **sending emails** from the application.
+```
+nodemailer ^8.0.2
+```
 
 ### Colors
-
-Permite mostrar mensajes con **colores en la consola** para mejorar la lectura de logs.
-
-
-colors
-
+Displays **colored messages in the console** for improved log readability.
+```
+colors ^1.4.0
+```
 
 ---
 
-# Dependencias de Desarrollo
-
-Estas dependencias se utilizan únicamente durante el **desarrollo del proyecto**.
-
----
+## Development Dependencies
 
 ### TypeScript
-
-Lenguaje principal utilizado para el desarrollo del proyecto.
-
-
-typescript
-
-
----
+Primary language used for development.
+```
+typescript ^5.9.3
+```
 
 ### TSX
-
-Permite ejecutar archivos TypeScript directamente sin necesidad de compilarlos manualmente.
-
-
-tsx
-
-
----
+Runs TypeScript files directly without manual compilation.
+```
+tsx ^4.21.0
+```
 
 ### TS Node
-
-Permite ejecutar TypeScript directamente en Node.js.
-
-
-ts-node
-
-
----
+Executes TypeScript directly in Node.js.
+```
+ts-node ^10.9.2
+```
 
 ### Nodemon
+Automatically restarts the server when file changes are detected.
+```
+nodemon ^3.1.14
+```
 
-Reinicia automáticamente el servidor cuando se detectan cambios en los archivos.
-
-
-nodemon
-
-
----
-
-### Tipos de TypeScript
-
-Se utilizan definiciones de tipos para mejorar el soporte de TypeScript.
-
-
-@types/express
-@types/bcrypt
-@types/jsonwebtoken
-@types/morgan
-@types/nodemailer
-@types/jest
-
+### TypeScript Type Definitions
+Type definitions for improved TypeScript support.
+```
+@types/express ^5.0.6
+@types/bcrypt ^6.0.0
+@types/jsonwebtoken ^9.0.10
+@types/morgan ^1.9.10
+@types/nodemailer ^7.0.11
+@types/jest ^30.0.0
+```
 
 ---
 
-# Configuración de Jest
+## Testing with Jest
 
-Jest es el framework utilizado para realizar **pruebas unitarias en el proyecto**.
+Jest is the framework used for **unit testing** in this project.
 
----
-
-## Instalación de Jest
-
-Para instalar Jest junto con las dependencias necesarias para trabajar con TypeScript ejecutar:
+### Install Jest
 
 ```bash
 npm install -D jest @types/jest ts-jest
-Crear archivo de configuración
+```
 
-Para generar automáticamente el archivo de configuración de Jest:
+### Generate Jest Configuration
 
+```bash
 npx ts-jest config:init
+```
 
-Este comando creará el archivo:
+This will create the `jest.config.js` file automatically.
 
-jest.config.js
+### HTTP Mocking
 
-Esta dependencia llamada node-mocks-http ayuda a hacer mocks y simular los llamados a una API
+`node-mocks-http` is used to mock and simulate API calls in tests.
 
-npm i -D node-mocks-http
+```bash
+npm install -D node-mocks-http
+```
+
+---
+
+## Project Structure
+
+```
+src/
+├── config/         # Database and app configuration
+├── handlers/       # Route handler functions
+├── middleware/      # Custom Express middleware
+├── models/         # Sequelize models
+├── routes/         # API route definitions
+├── emails/         # Email templates and service
+└── index.ts        # Application entry point
+```
+
+---
+
+## License
+
+All rights reserved
